@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/styles.css">
+    <title>BCI Memory Game</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand">
+        <div class="navbar-nav ml-auto mr-auto">
+            <button class="btn btn-secondary pull-left" id="countdown" hidden>05:00</button>
+            <button class="btn btn-success pull-left" id="start-button" onclick="startGame()">Start</button>
+        </div>
+    </nav>
+    <div class="directions">
+      <span><strong>Please select your desired card. Match the cards to their corresponding colors.</strong></span>
+    </div>
+    <div id="results-container" class="results-container">
+      <div class="results">
+         <input id="name" type="text" class="form-control form-control-sm" placeholder="Name / ID">
+         <div id="matches" style="display: none;"></div>
+         <div id="selected" style="display: none;"></div>
+      </div>
+    </div>
+    <section class="memory-game">
+        <div class="memory-card" data-card="card1">
+           <img class="front-face" src="img/card1.jpg">
+           <img class="back-face"  src="img/back.jpg">
+         </div>
+
+        <div class="memory-card" data-card="card1">
+            <img class="front-face" src="img/card1.jpg">
+            <img class="back-face"  src="img/back.jpg">
+         </div>
+       
+        <div class="memory-card" data-card="card2">
+            <img class="front-face" src="img/card2.jpg">
+            <img class="back-face"  src="img/back.jpg">
+         </div>
+       
+        <div class="memory-card" data-card="card2">
+            <img class="front-face" src="img/card2.jpg">
+            <img class="back-face"  src="img/back.jpg">
+         </div>
+       
+        <div class="memory-card" data-card="card3">
+            <img class="front-face" src="img/card3.jpg">
+            <img class="back-face"  src="img/back.jpg">
+         </div>
+       
+        <div class="memory-card" data-card="card3">
+            <img class="front-face" src="img/card3.jpg">
+            <img class="back-face"  src="img/back.jpg">
+         </div>
+       
+        <div class="memory-card" data-card="card4">
+            <img class="front-face" src="img/card4.jpg">
+            <img class="back-face"  src="img/back.jpg">
+         </div>
+       
+        <div class="memory-card" data-card="card4">
+            <img class="front-face" src="img/card4.jpg">
+            <img class="back-face"  src="img/back.jpg">
+         </div>
+       
+        <div class="memory-card" data-card="card5">
+            <img class="front-face" src="img/card5.jpg">
+            <img class="back-face"  src="img/back.jpg">
+         </div>
+       
+        <div class="memory-card" data-card="card5">
+            <img class="front-face" src="img/card5.jpg">
+            <img class="back-face"  src="img/back.jpg">
+         </div>
+       
+        <div class="memory-card" data-card="card6">
+            <img class="front-face" src="img/card6.jpg">
+            <img class="back-face"  src="img/back.jpg">
+         </div>
+       
+        <div class="memory-card" data-card="card6">
+            <img class="front-face" src="img/card6.jpg">
+            <img class="back-face"  src="img/back.jpg">
+        </div>
+
+        <div class="memory-card" data-card="card7">
+            <img class="front-face" src="img/card7.jpg">
+            <img class="back-face"  src="img/back.jpg">
+         </div>
+
+         <div class="memory-card" data-card="card7">
+            <img class="front-face" src="img/card7.jpg">
+            <img class="back-face"  src="img/back.jpg">
+         </div>
+
+         <div class="memory-card" data-card="card8">
+            <img class="front-face" src="img/card8.jpg">
+            <img class="back-face"  src="img/back.jpg">
+         </div>
+
+         <div class="memory-card" data-card="card8">
+            <img class="front-face" src="img/card8.jpg">
+            <img class="back-face"  src="img/back.jpg">
+         </div>
+
+         <div class="memory-card" data-card="card9">
+            <img class="front-face" src="img/card9.jpg">
+            <img class="back-face"  src="img/back.jpg">
+         </div>
+
+         <div class="memory-card" data-card="card9">
+            <img class="front-face" src="img/card9.jpg">
+            <img class="back-face"  src="img/back.jpg">
+         </div>
+
+         <div class="memory-card" data-card="card10">
+            <img class="front-face" src="img/card10.jpg">
+            <img class="back-face"  src="img/back.jpg">
+         </div>
+
+         <div class="memory-card" data-card="card10">
+            <img class="front-face" src="img/card10.jpg">
+            <img class="back-face"  src="img/back.jpg">
+         </div>
+   </section>
+   <script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-app.js"></script>
+   <script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-analytics.js"></script>
+   <script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-firestore.js"></script>
+   <script>
+   var firebaseConfig = {
+      apiKey: "AIzaSyBkrgBFVPuFr4CXR124H19tWhWWwht2Eb4",
+      authDomain: "bci-memory-game.firebaseapp.com",
+      databaseURL: "https://bci-memory-game.firebaseio.com",
+      projectId: "bci-memory-game",
+      storageBucket: "bci-memory-game.appspot.com",
+      messagingSenderId: "635542915886",
+      appId: "1:635542915886:web:749807d87567c8989348bf",
+      measurementId: "G-KHVEEW88XQ"
+   };
+   // Initialize Firebase
+   firebase.initializeApp(firebaseConfig);
+   firebase.analytics();
+   const db = firebase.firestore();
+   </script>
+    <script type="text/javascript" src="js/game.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
