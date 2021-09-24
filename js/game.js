@@ -4,7 +4,7 @@ audio.loop = true;
 
 let name = "";
 let hasFlippedCard = false;
-let lockBoard = false;
+let lockBoard = true; // false
 let firstCard, secondCard;
 let moves = [];
 let matchesMade = 0;
@@ -32,16 +32,17 @@ function flipCard() {
 
 function checkForMatch() {
     let isMatch = firstCard.dataset.card === secondCard.dataset.card;
+    var timeStamp = Date(); 
 
     numSelected += 1;
     if (isMatch) {
         numMatches += 1;
-        moves.push("[MATCH] " + name + " matched " + firstCard.dataset.card + " with " + secondCard.dataset.card);
+        moves.push(timeStamp + ": [MATCH] " + name + " matched " + firstCard.dataset.card + " with " + secondCard.dataset.card);
     }
     else {
-        moves.push("[ERROR]"  + name + " selected " + firstCard.dataset.card + " and " + secondCard.dataset.card);
+        moves.push(timeStamp + ": [ERROR]"  + name + " selected " + firstCard.dataset.card + " and " + secondCard.dataset.card);
     }
-    
+
     isMatch ? disableCards() : unflipCards();
 
     if (numMatches === 10) {
@@ -127,6 +128,7 @@ function manualShuffle() {
 }
 
 var countdownTimer;
+
 function startGame() {
     if (!document.getElementById('name').value.length) {
         alert("Please enter your name or ID to begin!");
@@ -137,6 +139,7 @@ function startGame() {
         document.getElementById('name').setAttribute("disabled", true);
     }
 
+    lockBoard = false;
     startTime = new Date();
     document.getElementById('countdown').removeAttribute('hidden');
     document.getElementById('results-container').setAttribute('hidden', true);
