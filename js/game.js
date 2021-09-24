@@ -39,9 +39,9 @@ function checkForMatch() {
         moves.push("[MATCH] " + name + " matched " + firstCard.dataset.card + " with " + secondCard.dataset.card);
     }
     else {
-        moves.push(name + " selected " + firstCard.dataset.card + " and " + secondCard.dataset.card);
+        moves.push("[ERROR]"  + name + " selected " + firstCard.dataset.card + " and " + secondCard.dataset.card);
     }
-
+    
     isMatch ? disableCards() : unflipCards();
 
     if (numMatches === 10) {
